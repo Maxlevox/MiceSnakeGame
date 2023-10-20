@@ -8,12 +8,12 @@ public class Game extends PApplet {
     Player player;
     ArrayList<Snake> snakeList;
     public void settings() {
-        size(800, 800);   // set the window size
+        size(800, 600);   // set the window size
 
     }
 
     public void setup() {
-        player = new Player(300,300,10);
+        player = new Player(300,300,20);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             Mice mouse = new Mice((int)(Math.random()*550+50),(int)(Math.random()*550+50),18);
@@ -41,10 +41,15 @@ public class Game extends PApplet {
         for (Snake snake: snakeList) {
             snake.draw(this);
         }
+
+        player.draw(this);
     }
 
     public void keyPressed(){
-       // Player.
+       player.handleKeyPress(key);
+    }
+    public void keyReleased(){
+        player.handleKeyReleased(key);
     }
         public static void main (String[]args){
             PApplet.main("Game");

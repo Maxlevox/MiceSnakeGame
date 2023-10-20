@@ -25,17 +25,17 @@ public class Snake {
     }
 
     public void wallCollisions(PApplet window) {
-        if (x + size/2 >= 800){
+        if (x + size/2 >= window.width){
             xSpeed = -xSpeed;
-            this.x = 800-size/2;
+            this.x = window.width-size/2;
         }
         else if (x - size/2 <= 0) {
             xSpeed = -xSpeed;
             this.x = size/2;
         }
-        if (y + size/2 >= 800){
+        if (y + size/2 >= window.height){
             ySpeed = -ySpeed;
-            this.y = 800-size/2;
+            this.y = window.height-size/2;
         }
         if ( y - size/2 <= 0) {
             ySpeed = -ySpeed;
