@@ -56,11 +56,12 @@ public class Mice {
 
     public double distance(int miceX, int miceY, int snakeX, int snakeY) {
         int distanceX = miceX - snakeX;
-        int distanceY = miceY - snakeX;
+        int distanceY = miceY - snakeY;
         return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
 
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
+    public int get_size() {return this.size;}
 
 }

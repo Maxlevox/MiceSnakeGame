@@ -3,6 +3,7 @@ import processing.core.PApplet;
 public class Player {
     int x, y,size;
     boolean alive;
+    boolean hasMouse;
 
     boolean left = false;
     boolean right = false;
@@ -15,6 +16,7 @@ public class Player {
        this.x = x;
        this.y = y;
         alive = true;
+        hasMouse = false;
     }
 
     public void draw(PApplet window){
@@ -34,6 +36,16 @@ public class Player {
             x+=5;
         }
         wallCollision(window);
+    }
+
+    public boolean collidingWithMouse(Mice mouse){
+        return (float)(this.size)/2 + (float)mouse.get_size()/2 <= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
+    }
+    public double distance(float x1, float y1, int x2, int y2) {
+        float distanceX = x1 - x2;
+        System.out.println("bullshit ass ");
+        float distanceY = y1 - y2;
+        return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
 
     public void handleKeyPress(char key){
@@ -83,4 +95,17 @@ public class Player {
     public boolean isAlive(){
         return alive;
     }
+
+    public boolean doYouHaveMouse(){
+        return hasMouse;
+    }
+    public void setHasMouse(boolean gotMouse){
+        if(gotMouse) {
+            hasMouse = true;
+        } else{
+            hasMouse = false;
+        }
+    }
+    public float get_x() {return this.x;}
+    public float get_y() {return this.y;}
 }

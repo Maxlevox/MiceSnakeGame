@@ -34,15 +34,19 @@ public class Game extends PApplet {
         background(255);    // paint screen white
         fill(0, 255, 0);          // load green paint color
 
+        player.draw(this);
+
         for (Mice mouse : mouseList) {
             mouse.draw(this);
+            if(player.collidingWithMouse(mouse)){
+                player.setHasMouse(true);
+            }
         }
 
         for (Snake snake: snakeList) {
+            snake.changeColor(player.doYouHaveMouse());
             snake.draw(this);
         }
-
-        player.draw(this);
     }
 
     public void keyPressed(){

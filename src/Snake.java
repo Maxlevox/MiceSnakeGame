@@ -9,6 +9,8 @@ public class Snake {
         this.x = x;
         this.y = y;
         this.size = size;
+        redColor = 0;
+        greenColor = 255;
 
         xSpeed = Math.random()*4 + 1;
         if (xSpeed > 0.5) xSpeed = -xSpeed;
@@ -19,9 +21,22 @@ public class Snake {
     }
 
     public void draw(PApplet window){
-        window.fill(0,255,0);
+
+        window.fill(redColor,greenColor,0);
         window.ellipse(x,y,size,size);
         wallCollisions(window);
+    }
+
+    public boolean changeColor(boolean hasMouse){
+        redColor++;
+        greenColor--;
+
+        if(hasMouse){
+            redColor = 0;
+            greenColor = 255;
+            return false;
+        }
+        return false;
     }
 
     public void wallCollisions(PApplet window) {
