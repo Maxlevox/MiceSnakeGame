@@ -23,11 +23,9 @@ public class Game extends PApplet {
         snakeList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Snake snake = new Snake((int)(Math.random()*550+50), (int)(Math.random()*550+50), 30);
-//            for (int j = 0; j < mouseList.size(); j++) {
-//               if (mouseList.get(j).get_x() == snake.get_x())
-//            }
             snakeList.add(snake);
         }
+
     }
 
     public void draw() {
@@ -47,6 +45,15 @@ public class Game extends PApplet {
             snake.changeColor(player.doYouHaveMouse());
             snake.draw(this);
         }
+
+//        for (int i = 0; i < mouseList.size(); i++) {
+//            for (int j = 0; j < snakeList.size(); j++) {
+//                if ( mouseList.get(i).colliding(snakeList.get(j)) ) {
+//                    mouseList.get(i).xSpeed = -mouseList.get(i).xSpeed;
+//                    mouseList.get(i).ySpeed = -mouseList.get(i).xSpeed;
+//                }
+//            }
+//        }
     }
 
     public void keyPressed(){

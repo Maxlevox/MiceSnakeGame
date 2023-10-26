@@ -43,7 +43,7 @@ public class Player {
     }
     public double distance(float x1, float y1, int x2, int y2) {
         float distanceX = x1 - x2;
-        System.out.println("bullshit ass ");
+        // System.out.println("bullshit ass ");
         float distanceY = y1 - y2;
         return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
