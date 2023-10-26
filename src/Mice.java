@@ -51,7 +51,7 @@ public class Mice {
     }
 
     public boolean colliding(Snake snake){
-        return (double)((this.size)/2) + (double)(snake.get_size()/2) <= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
+        return Math.abs((double)((this.size)/2) + (double)(snake.get_size()/2)) >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
     }
 
     public double distance(int miceX, int miceY, int snakeX, int snakeY) {
@@ -61,7 +61,11 @@ public class Mice {
     }
 
     public int get_x() {return this.x;}
+    public void set_x(int newX) {this.x = newX;}
+    public void set_y(int newY) {this.y = newY;}
     public int get_y() {return this.y;}
     public int get_size() {return this.size;}
+    public double get_Xspeed() {return this.xSpeed;}
+    public double get_Yspeed() {return this.ySpeed;}
 
 }

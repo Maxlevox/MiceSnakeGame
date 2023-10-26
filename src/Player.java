@@ -13,8 +13,8 @@ public class Player {
 
     public Player(int x, int y, int size){
         this.size = size;
-       this.x = x;
-       this.y = y;
+        this.x = x;
+        this.y = y;
         alive = true;
         hasMouse = false;
     }
@@ -39,7 +39,7 @@ public class Player {
     }
 
     public boolean collidingWithMouse(Mice mouse){
-        return (float)(this.size)/2 + (float)mouse.get_size()/2 <= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
+        return (float)(this.size)/2 + (float)mouse.get_size()/2 >= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
     }
     public double distance(float x1, float y1, int x2, int y2) {
         float distanceX = x1 - x2;
@@ -108,4 +108,5 @@ public class Player {
     }
     public float get_x() {return this.x;}
     public float get_y() {return this.y;}
+    public int get_size(){return this.size;}
 }

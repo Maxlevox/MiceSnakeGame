@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Game extends PApplet {
     // TODO: declare game variables
-    ArrayList<Mice> mouseList;
-    Player player;
-    ArrayList<Snake> snakeList;
+    private ArrayList<Mice> mouseList;
+    private Mice gottenMouse;
+    private Player player;
+    private ArrayList<Snake> snakeList;
     public void settings() {
         size(800, 600);   // set the window size
 
@@ -46,14 +47,23 @@ public class Game extends PApplet {
             snake.draw(this);
         }
 
-//        for (int i = 0; i < mouseList.size(); i++) {
-//            for (int j = 0; j < snakeList.size(); j++) {
-//                if ( mouseList.get(i).colliding(snakeList.get(j)) ) {
-//                    mouseList.get(i).xSpeed = -mouseList.get(i).xSpeed;
-//                    mouseList.get(i).ySpeed = -mouseList.get(i).xSpeed;
-//                }
-//            }
-//        }
+        for (int i = 0; i < mouseList.size(); i++) {
+            for (int j = 0; j < snakeList.size(); j++) {
+                if ( mouseList.get(i).colliding(snakeList.get(j)) ) {
+                    mouseList.get(i).xSpeed = -mouseList.get(i).xSpeed;
+                    mouseList.get(i).ySpeed = -mouseList.get(i).xSpeed;
+                }
+            }
+        }
+
+        for (int i = 0; i < mouseList.size(); i++) {
+            if ( player.collidingWithMouse(mouseList.get(i)) ) {
+                player.setHasMouse(true);
+                gottenMouse = mouseList.get(i);
+                System.out.println("mouse got coughtt");
+            }
+            break;
+        }
     }
 
     public void keyPressed(){

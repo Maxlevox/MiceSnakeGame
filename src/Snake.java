@@ -3,7 +3,7 @@ import processing.core.PApplet;
 public class Snake {
     private int x, y, size;
     private int redColor, greenColor;
-    double xSpeed, ySpeed;
+    private double xSpeed, ySpeed;
 
     public Snake(int x, int y, int size) {
         this.x = x;
