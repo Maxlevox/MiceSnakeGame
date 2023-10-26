@@ -106,7 +106,7 @@ public class Player {
             hasMouse = false;
         }
     }
-    public float get_x() {return this.x;}
-    public float get_y() {return this.y;}
+    public int get_x() {return this.x;}
+    public int get_y() {return this.y;}
     public int get_size(){return this.size;}
 }
