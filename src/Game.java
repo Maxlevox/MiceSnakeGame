@@ -60,13 +60,14 @@ public class Game extends PApplet {
             if ( player.collidingWithMouse(mouseList.get(i)) ) {
                 player.setHasMouse(true);
                 gottenMouse = mouseList.get(i);
-                // System.out.println("mouse got coughtt");
                 // Not sure how to make the mouse follow the player. This is an idea.
-                gottenMouse.set_x(player.get_x() - 18);
-                gottenMouse.set_y(player.get_y() - 18);
+                gottenMouse.ySpeed = 0;
+                gottenMouse.xSpeed = 0;
+                gottenMouse.following(player);
                 i = mouseList.size();
-
+                System.out.println("mouse got coughtt");
             }
+            player.setHasMouse(false);
         }
     }
 

@@ -24,22 +24,26 @@ public class Player {
         window.ellipse(x,y,size,size);
 
         if(up){
-            y-=5;
+            y-=2;
         }
         if(down){
-            y+=5;
+            y+=2;
         }
         if(left){
-            x-=5;
+            x-=2;
         }
         if(right){
-            x+=5;
+            x+=2;
         }
         wallCollision(window);
     }
 
     public boolean collidingWithMouse(Mice mouse){
         return (float)(this.size)/2 + (float)mouse.get_size()/2 >= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
+    }
+
+    public boolean collidingWithSnake(Snake snake) {
+        return (float)(this.size)/2 + (float)snake.get_size()/2 >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
     }
     public double distance(float x1, float y1, int x2, int y2) {
         float distanceX = x1 - x2;
@@ -109,4 +113,5 @@ public class Player {
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
     public int get_size(){return this.size;}
+
 }

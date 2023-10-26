@@ -48,10 +48,19 @@ public class Mice {
 
         x += xSpeed;
         y += ySpeed;
+
+
     }
 
     public boolean colliding(Snake snake){
         return Math.abs((double)((this.size)/2) + (double)(snake.get_size()/2)) >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
+    }
+
+    public void following(Player player) {
+        if (player.up) this.y = player.get_y() -  18;
+        if (player.down) this.y = player.get_y() + 18;
+        if (player.right) this.x = player.get_x() - 18;
+        if (player.left) this.x = player.get_x() + 18;
     }
 
     public double distance(int miceX, int miceY, int snakeX, int snakeY) {
