@@ -38,7 +38,7 @@ public class Game extends PApplet {
 
         System.out.println(player.hasMouse);
         for (Mice mouse : mouseList) {
-            if(player.collidingWithMouse(mouse) && !player.hasMouse){
+            if(player.collidingWithMouse(mouse)){
                 player.setHasMouse(true);
                 mouse.setCaught(true);
             }

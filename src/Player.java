@@ -39,10 +39,7 @@ public class Player {
     }
 
     public boolean collidingWithMouse(Mice mouse) {
-        if (hasMouse) {
             return (float) (this.size) / 2 + (float) mouse.get_size() / 2 >= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
-        }
-        return false;
     }
 
     public boolean collidingWithSnake(Snake snake) {
