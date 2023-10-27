@@ -56,11 +56,17 @@ public class Mice {
         return Math.abs((double)((this.size)/2) + (double)(snake.get_size()/2)) >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
     }
 
-    public void following(Player player) {
-        if (player.up) this.y = player.get_y() -  18;
-        if (player.down) this.y = player.get_y() + 18;
-        if (player.right) this.x = player.get_x() - 18;
-        if (player.left) this.x = player.get_x() + 18;
+    public void following(Player player, boolean shouldFollow) {
+//        double distance = distance(player.get_x(), player.get_y(), this.x, this.y);
+//        int yDistance = player.get_y() - this.y;
+//        double angle = Math.asin( yDistance / distance );
+//        this.xSpeed = player.getSpeed() * Math.cos(angle);
+//        this.ySpeed = player.getSpeed() * Math.sin(angle);
+        float xDiff = player.get_x() - this.x;
+        float yDiff = player.get_y() - this.y;
+
+        x = (int)( x + (xDiff / 10) );
+        y = (int)( y + (yDiff / 10) );
     }
 
     public double distance(int miceX, int miceY, int snakeX, int snakeY) {

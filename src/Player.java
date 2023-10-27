@@ -38,8 +38,11 @@ public class Player {
         wallCollision(window);
     }
 
-    public boolean collidingWithMouse(Mice mouse){
-        return (float)(this.size)/2 + (float)mouse.get_size()/2 >= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
+    public boolean collidingWithMouse(Mice mouse) {
+        if (hasMouse) {
+            return (float) (this.size) / 2 + (float) mouse.get_size() / 2 >= distance(this.get_x(), this.get_y(), mouse.get_x(), mouse.get_y());
+        }
+        return false;
     }
 
     public boolean collidingWithSnake(Snake snake) {
@@ -114,4 +117,7 @@ public class Player {
     public int get_y() {return this.y;}
     public int get_size(){return this.size;}
 
+    public double getSpeed() {
+        return 5;
+    }
 }

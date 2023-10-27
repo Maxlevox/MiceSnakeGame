@@ -6,6 +6,7 @@ public class Game extends PApplet {
     // TODO: declare game variables
     private ArrayList<Mice> mouseList;
     private Mice gottenMouse;
+    private Snake fedSnake;
     private Player player;
     private ArrayList<Snake> snakeList;
     public void settings() {
@@ -58,16 +59,23 @@ public class Game extends PApplet {
 
         for (int i = 0; i < mouseList.size(); i++) {
             if ( player.collidingWithMouse(mouseList.get(i)) ) {
-                player.setHasMouse(true);
                 gottenMouse = mouseList.get(i);
                 // Not sure how to make the mouse follow the player. This is an idea.
-                gottenMouse.ySpeed = 0;
-                gottenMouse.xSpeed = 0;
-                gottenMouse.following(player);
+                gottenMouse.following(player, true);
                 i = mouseList.size();
+                player.setHasMouse(true);
                 System.out.println("mouse got coughtt");
             }
-            player.setHasMouse(false);
+        }
+
+        for (int i = 0; i < snakeList.size(); i++) {
+            if (player.collidingWithSnake(snakeList.get(i))) {
+                fedSnake = snakeList.get(i);
+                fedSnake.changeColor(true);
+                player.hasMouse = false;
+                mouseList.remove(gottenMouse);
+                gottenMouse = null;
+            }
         }
     }
 
