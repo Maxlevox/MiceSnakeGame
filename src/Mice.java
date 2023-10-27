@@ -81,7 +81,7 @@ public class Mice {
     public double get_Xspeed() {return this.xSpeed;}
     public double get_Yspeed() {return this.ySpeed;}
 
-    public void set_Xspeed() {this.xSpeed = -this.xSpeed;}
-    public void set_Yspeed() {this.ySpeed = -this.ySpeed;}
+    public void flip_Xspeed() {this.xSpeed = -this.xSpeed;}
+    public void flip_Yspeed() {this.ySpeed = -this.ySpeed;}
 
 }

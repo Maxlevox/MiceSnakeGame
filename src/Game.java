@@ -37,7 +37,14 @@ public class Game extends PApplet {
         player.draw(this);
 
         System.out.println(player.hasMouse);
+
         for (Mice mouse : mouseList) {
+            for (int j = 0; j < snakeList.size(); j++) {
+                if ( mouse.colliding(snakeList.get(j)) ) {
+                    mouse.flip_Xspeed();
+                    mouse.flip_Yspeed();
+                }
+            }
             if(player.collidingWithMouse(mouse)){
                 player.setHasMouse(true);
                 mouse.setCaught(true);
@@ -56,12 +63,7 @@ public class Game extends PApplet {
         }
 
         for (int i = 0; i < mouseList.size(); i++) {
-            for (int j = 0; j < snakeList.size(); j++) {
-                if ( mouseList.get(i).colliding(snakeList.get(j)) ) {
-                    mouseList.get(i).set_Xspeed();
-                    mouseList.get(i).set_Yspeed();
-                }
-            }
+
         }
 
 
