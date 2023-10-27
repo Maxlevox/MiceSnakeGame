@@ -36,8 +36,6 @@ public class Game extends PApplet {
 
         player.draw(this);
 
-        System.out.println(player.hasMouse);
-
         for (Mice mouse : mouseList) {
             for (int j = 0; j < snakeList.size(); j++) {
                 if ( mouse.colliding(snakeList.get(j)) ) {
@@ -45,36 +43,34 @@ public class Game extends PApplet {
                     mouse.flip_Yspeed();
                 }
             }
-            if(player.collidingWithMouse(mouse)){
+            if(player.collidingWithMouse(mouse) && !player.hasMouse){
                 player.setHasMouse(true);
                 mouse.setCaught(true);
             }
             if(mouse.isCaught()){
                 mouse.set_x(player.get_x());
                 mouse.set_y(player.get_y());
-                System.out.println("asfasdf");
             }
             mouse.draw(this);
         }
 
         for (Snake snake: snakeList) {
-            snake.changeColor(player.doYouHaveMouse());
+            snake.changeColor(false);
             snake.draw(this);
         }
 
-        for (int i = 0; i < mouseList.size(); i++) {
-
-        }
-
-
-
         for (int i = 0; i < snakeList.size(); i++) {
-            if (player.collidingWithSnake(snakeList.get(i))) {
-                fedSnake = snakeList.get(i);
-                fedSnake.changeColor(true);
+            if (player.collidingWithSnake(snakeList.get(i)) && player.hasMouse) {
+                snakeList.get(i).changeColor(player.hasMouse);
                 player.hasMouse = false;
-                mouseList.remove(gottenMouse);
-                gottenMouse = null;
+
+                for(Mice mouse : mouseList){
+                    if(mouse.isCaught()){
+                        mouse.setCaught(false);
+                        mouse.set_x((int)(Math.random()*550+50));
+                        mouse.set_y((int)(Math.random()*550+50));
+                    }
+                }
             }
         }
     }

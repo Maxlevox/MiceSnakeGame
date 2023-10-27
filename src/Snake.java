@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 public class Snake {
     private int x, y, size;
-    private int redColor, greenColor;
+    private double redColor, greenColor;
     private double xSpeed, ySpeed;
 
     public Snake(int x, int y, int size) {
@@ -22,16 +22,20 @@ public class Snake {
 
     public void draw(PApplet window){
 
-        window.fill(redColor,greenColor,0);
+        window.fill((int)redColor,(int)greenColor,0);
         window.ellipse(x,y,size,size);
         wallCollisions(window);
     }
 
-    public boolean changeColor(boolean hasMouse){
-        redColor++;
-        greenColor--;
+    public boolean changeColor(boolean hasMouseAndCollided){
+        redColor += 0.3;
+        greenColor -= 0.3;
 
-        if(hasMouse){
+        if(greenColor <= 0){
+            System.out.println("you lose");
+        }
+
+        if(hasMouseAndCollided){
             redColor = 0;
             greenColor = 255;
             return false;
