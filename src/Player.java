@@ -24,16 +24,16 @@ public class Player {
         window.ellipse(x,y,size,size);
 
         if(up){
-            y-=2;
+            y-=5;
         }
         if(down){
-            y+=2;
+            y+=5;
         }
         if(left){
-            x-=2;
+            x-=5;
         }
         if(right){
-            x+=2;
+            x+=5;
         }
         wallCollision(window);
     }

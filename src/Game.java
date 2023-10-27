@@ -36,11 +36,18 @@ public class Game extends PApplet {
 
         player.draw(this);
 
+        System.out.println(player.hasMouse);
         for (Mice mouse : mouseList) {
-            mouse.draw(this);
-            if(player.collidingWithMouse(mouse)){
+            if(player.collidingWithMouse(mouse) && !player.hasMouse){
                 player.setHasMouse(true);
+                mouse.setCaught(true);
             }
+            if(mouse.isCaught()){
+                mouse.set_x(player.get_x());
+                mouse.set_y(player.get_y());
+                System.out.println("asfasdf");
+            }
+            mouse.draw(this);
         }
 
         for (Snake snake: snakeList) {
@@ -51,22 +58,13 @@ public class Game extends PApplet {
         for (int i = 0; i < mouseList.size(); i++) {
             for (int j = 0; j < snakeList.size(); j++) {
                 if ( mouseList.get(i).colliding(snakeList.get(j)) ) {
-                    mouseList.get(i).xSpeed = -mouseList.get(i).xSpeed;
-                    mouseList.get(i).ySpeed = -mouseList.get(i).xSpeed;
+                    mouseList.get(i).set_Xspeed();
+                    mouseList.get(i).set_Yspeed();
                 }
             }
         }
 
-        for (int i = 0; i < mouseList.size(); i++) {
-            if ( player.collidingWithMouse(mouseList.get(i)) ) {
-                gottenMouse = mouseList.get(i);
-                // Not sure how to make the mouse follow the player. This is an idea.
-                gottenMouse.following(player, true);
-                i = mouseList.size();
-                player.setHasMouse(true);
-                System.out.println("mouse got coughtt");
-            }
-        }
+
 
         for (int i = 0; i < snakeList.size(); i++) {
             if (player.collidingWithSnake(snakeList.get(i))) {

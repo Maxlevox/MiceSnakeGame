@@ -2,12 +2,14 @@ import processing.core.PApplet;
 
 public class Mice {
     private int x, y, size;
-    double xSpeed, ySpeed;
+   private double xSpeed, ySpeed;
+   private boolean isCaught;
 
     public Mice(int x, int y, int size){
         this.x = x;
         this.y = y;
         this.size = size;
+        isCaught = false;
 
         xSpeed = Math.random() * 4 + 1;
         if(Math.random() > 0.5){
@@ -23,6 +25,8 @@ public class Mice {
     public void draw(PApplet window){
         window.fill(128,128,128);
         window.ellipse(x,y,size,size);
+
+
 
         wallCollision(window);
     }
@@ -56,17 +60,11 @@ public class Mice {
         return Math.abs((double)((this.size)/2) + (double)(snake.get_size()/2)) >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
     }
 
-    public void following(Player player, boolean shouldFollow) {
-//        double distance = distance(player.get_x(), player.get_y(), this.x, this.y);
-//        int yDistance = player.get_y() - this.y;
-//        double angle = Math.asin( yDistance / distance );
-//        this.xSpeed = player.getSpeed() * Math.cos(angle);
-//        this.ySpeed = player.getSpeed() * Math.sin(angle);
-        float xDiff = player.get_x() - this.x;
-        float yDiff = player.get_y() - this.y;
-
-        x = (int)( x + (xDiff / 10) );
-        y = (int)( y + (yDiff / 10) );
+    public void setCaught(boolean shouldFollow) {
+        isCaught = shouldFollow;
+    }
+    public boolean isCaught(){
+        return isCaught;
     }
 
     public double distance(int miceX, int miceY, int snakeX, int snakeY) {
@@ -82,5 +80,8 @@ public class Mice {
     public int get_size() {return this.size;}
     public double get_Xspeed() {return this.xSpeed;}
     public double get_Yspeed() {return this.ySpeed;}
+
+    public void set_Xspeed() {this.xSpeed = -this.xSpeed;}
+    public void set_Yspeed() {this.ySpeed = -this.ySpeed;}
 
 }
