@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Game extends PApplet {
     // TODO: declare game variables
     private ArrayList<Mice> mouseList;
-    private Mice gottenMouse;
-    private Snake fedSnake;
     private Player player;
     private ArrayList<Snake> snakeList;
     public void settings() {
@@ -15,7 +13,7 @@ public class Game extends PApplet {
     }
 
     public void setup() {
-        player = new Player(300,300,20);
+        player = new Player(300,300,25);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             Mice mouse = new Mice((int)(Math.random()*550+50),(int)(Math.random()*550+50),18);
@@ -37,33 +35,38 @@ public class Game extends PApplet {
         player.draw(this);
 
         for (Mice mouse : mouseList) {
+            // changing the direction of mouse if it collides or is close to snake
             for (int j = 0; j < snakeList.size(); j++) {
                 if ( mouse.colliding(snakeList.get(j)) ) {
                     mouse.flip_Xspeed();
                     mouse.flip_Yspeed();
                 }
             }
+            // player catching or colliding with mouse
             if(player.collidingWithMouse(mouse) && !player.hasMouse){
                 player.setHasMouse(true);
                 mouse.setCaught(true);
             }
-            if(mouse.isCaught()){
+
+            if (mouse.isCaught()) {
+                // making mouse follow
                 mouse.set_x(player.get_x());
                 mouse.set_y(player.get_y());
             }
+
             mouse.draw(this);
         }
-
+        // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
             snake.changeColor(false);
             snake.draw(this);
         }
-
+        // feeding the closest snake by colliding with it
         for (int i = 0; i < snakeList.size(); i++) {
             if (player.collidingWithSnake(snakeList.get(i)) && player.hasMouse) {
                 snakeList.get(i).changeColor(player.hasMouse);
                 player.hasMouse = false;
-
+                // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
                     if(mouse.isCaught()){
                         mouse.setCaught(false);
@@ -72,6 +75,24 @@ public class Game extends PApplet {
                     }
                 }
             }
+        }
+        // all snakes are red (hungry) and you lose because they eat you
+        if (    snakeList.get(0).get_greencolor() <= 0 &&
+                snakeList.get(1).get_greencolor() <= 0 &&
+                snakeList.get(2).get_greencolor() <= 0 &&
+                snakeList.get(3).get_greencolor() <= 0 &&
+                snakeList.get(4).get_greencolor() <= 0 ) {
+            for (Mice mouse: mouseList) {
+                mouse.set_Xspeed(0);
+                mouse.set_Yspeed(0);
+            }
+            for (Snake snake : snakeList) {
+                snake.set_xSpeed(0);
+                snake.set_ySpeed(0);
+            }
+            // creating rectangle in the middle that says " you lose"
+            rect(400, 300, 400, 100);
+            fill(0, 0, 255);
         }
     }
 
