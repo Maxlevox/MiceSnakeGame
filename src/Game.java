@@ -90,9 +90,12 @@ public class Game extends PApplet {
                 snake.set_xSpeed(0);
                 snake.set_ySpeed(0);
             }
+            // HAVE TO MAKE PLAYER STOP MOVING
             // creating rectangle in the middle that says " you lose"
-            rect(400, 300, 400, 100);
-            fill(0, 0, 255);
+            rect(150, 200, 500, 100);
+            fill(0, 255, 0);
+            text("You Lost", 150, 250);
+            //System.out.println("YOU LOST! good try...");
         }
     }
 
