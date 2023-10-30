@@ -32,7 +32,7 @@ public class Snake {
         greenColor -= 0.3;
 
         if(greenColor <= 0){
-            System.out.println("you lose");
+            return true;
         }
 
         if(hasMouseAndCollided){

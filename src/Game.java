@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Game extends PApplet {
     // TODO: declare game variables
     private ArrayList<Mice> mouseList;
-    private Mice gottenMouse;
-    private Snake fedSnake;
+
     private Player player;
     private ArrayList<Snake> snakeList;
+    boolean gameOver;
     public void settings() {
         size(800, 600);   // set the window size
 
@@ -17,6 +17,7 @@ public class Game extends PApplet {
     public void setup() {
         player = new Player(300,300,20);
         mouseList = new ArrayList<>();
+        gameOver = false;
         for(int i = 0; i < 10; i++){
             Mice mouse = new Mice((int)(Math.random()*550+50),(int)(Math.random()*550+50),18);
             mouseList.add(mouse);
@@ -55,13 +56,18 @@ public class Game extends PApplet {
         }
 
         for (Snake snake: snakeList) {
-            snake.changeColor(false);
             snake.draw(this);
+            if(snake.changeColor(false)){
+                background(100);
+            }
         }
 
         for (int i = 0; i < snakeList.size(); i++) {
             if (player.collidingWithSnake(snakeList.get(i)) && player.hasMouse) {
-                snakeList.get(i).changeColor(player.hasMouse);
+                snakeList.get(i).draw(this);
+                if(snakeList.get(i).changeColor(player.hasMouse)){
+                    gameOver = true;
+                }
                 player.hasMouse = false;
 
                 for(Mice mouse : mouseList){
@@ -72,6 +78,12 @@ public class Game extends PApplet {
                     }
                 }
             }
+        }
+        if(gameOver){
+            background(100);
+            fill(255,0,0);
+            textSize(70);
+            text("YOU LOST!",240,300);
         }
     }
 
