@@ -31,10 +31,6 @@ public class Snake {
         redColor += 0.3;
         greenColor -= 0.3;
 
-        if(greenColor <= 0){
-            return true;
-        }
-
         if(hasMouseAndCollided){
             redColor = 0;
             greenColor = 255;
@@ -68,4 +64,15 @@ public class Snake {
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
     public int get_size() {return this.size;}
+
+    public double get_greencolor() {
+        return this.greenColor;
+    }
+
+    public void set_xSpeed(int xspeed) {
+        this.xSpeed = xspeed;
+    }
+    public void set_ySpeed(int yspeed) {
+        this.ySpeed = yspeed;
+    }
 }
