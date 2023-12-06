@@ -8,12 +8,14 @@ public class Game extends PApplet {
     private Player player;
     private ArrayList<Snake> snakeList;
     private int frames;
+    private boolean lost;
     public void settings() {
         size(800, 600);   // set the window size
 
     }
 
     public void setup() {
+        lost = false;
         player = new Player(300,300,25);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
@@ -30,7 +32,7 @@ public class Game extends PApplet {
     }
 
     public void draw() {
-        frames++;
+        if (!lost) frames++;
         background(255);    // paint screen white
         fill(0, 255, 0);          // load green paint color
 
@@ -79,11 +81,12 @@ public class Game extends PApplet {
             }
         }
         // all snakes are red (hungry) and you lose because they eat you
-        if (    snakeList.get(0).get_greencolor() <= 0 &&
-                snakeList.get(1).get_greencolor() <= 0 &&
-                snakeList.get(2).get_greencolor() <= 0 &&
-                snakeList.get(3).get_greencolor() <= 0 &&
+        if (    snakeList.get(0).get_greencolor() <= 0 ||
+                snakeList.get(1).get_greencolor() <= 0 ||
+                snakeList.get(2).get_greencolor() <= 0 ||
+                snakeList.get(3).get_greencolor() <= 0 ||
                 snakeList.get(4).get_greencolor() <= 0 ) {
+            lost = true;
             for (Mice mouse: mouseList) {
                 mouse.set_Xspeed(0);
                 mouse.set_Yspeed(0);
@@ -96,7 +99,7 @@ public class Game extends PApplet {
             // creating rectangle in the middle that says " you lose"
             rect(150, 200, 500, 100);
             fill(0, 255, 0);
-            text("You Lost. You have lasted " + frames/30.0 + " seconds. ", 150, 250);
+            text("You Lost. You have lasted " + (int)(frames/30.0) + " seconds. ", 150, 250);
             //System.out.println("YOU LOST! good try...");
         }
     }
