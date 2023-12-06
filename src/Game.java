@@ -16,6 +16,15 @@ public class Game extends PApplet {
 
     public void setup() {
         lost = false;
+        frames = 0;
+
+
+        try {
+            prevHighScore = readFile("score/highscore");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         player = new Player(300,300,25);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
@@ -68,7 +77,7 @@ public class Game extends PApplet {
         // feeding the closest snake by colliding with it
         for (int i = 0; i < snakeList.size(); i++) {
             if (player.collidingWithSnake(snakeList.get(i)) && player.hasMouse) {
-                snakeList.get(i).changeColor(player.hasMouse);
+                snakeList.get(i).changeColor(true);
                 player.hasMouse = false;
                 // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
@@ -79,36 +88,53 @@ public class Game extends PApplet {
                     }
                 }
             }
+            if (    snakeList.get(i).get_greencolor() <= 0) {
+                lost = true;
+            }
         }
-        // all snakes are red (hungry) and you lose because they eat you
-        if (    snakeList.get(0).get_greencolor() <= 0 ||
-                snakeList.get(1).get_greencolor() <= 0 ||
-                snakeList.get(2).get_greencolor() <= 0 ||
-                snakeList.get(3).get_greencolor() <= 0 ||
-                snakeList.get(4).get_greencolor() <= 0 ) {
-            lost = true;
-            for (Mice mouse: mouseList) {
-                mouse.set_Xspeed(0);
-                mouse.set_Yspeed(0);
-            }
-            for (Snake snake : snakeList) {
-                snake.set_xSpeed(0);
-                snake.set_ySpeed(0);
-            }
+        // snakes are red (hungry) and you lose because they eat you
+        time = (int)(frames / 60.0);
+        if(lost) {
+            System.out.println(time);
+
+            background(100);
+
             // HAVE TO MAKE PLAYER STOP MOVING
             // creating rectangle in the middle that says " you lose"
-            rect(150, 200, 500, 100);
             fill(0, 255, 0);
-            text("You Lost. You have lasted " + (int)(frames/30.0) + " seconds. ", 150, 250);
-            //System.out.println("YOU LOST! good try...");
+            textSize(30);
+            player.x = 99999;
+            text("You Lost. You have lasted. " + time + " seconds", 160, 250);
+            text("High score: " + prevHighScore + " seconds",160,300);
+            text("Your score: " + time + " seconds",160,400);
+
+            try {
+                if (time == 0) {
+                    System.out.println("TIME IS ZERO");
+                }
+                saveData(time, "score/highscore", false);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        textSize(35);
+        fill(0);
+       text("Time: " + time,20,40);
     }
 
     public void keyPressed(){
        player.handleKeyPress(key);
     }
-    public void keyReleased(){
+    public void keyReleased() {
         player.handleKeyReleased(key);
+        if (key == 'r') {
+            setup();
+        }
+        if(key == 'p'){
+            lost = true;
+        }
+
+
     }
         public static void main (String[]args){
             PApplet.main("Game");

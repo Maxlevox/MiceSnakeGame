@@ -56,6 +56,7 @@ public class Mice {
 
     }
 
+
     public boolean colliding(Snake snake){
         return Math.abs((double)((this.size)/2) + (double)(snake.get_size()/2)) >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
     }

@@ -79,6 +79,7 @@ public class Player {
         if(key == 'd'){
             right = false;
         }
+
     }
 
     public void wallCollision(PApplet window){
