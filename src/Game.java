@@ -27,10 +27,10 @@ public class Game extends PApplet {
         lost = false;
         frames = 0;
 
-
         try {
             prevHighScore = readFile("score/highscore");
-        } catch (IOException e) {
+            if (prevHighScore.trim().equals("")) prevHighScore = "0";
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -132,20 +132,19 @@ public class Game extends PApplet {
     }
 
     private void saveData(int data, String filepath, boolean append) throws IOException {
-            try (FileWriter f = new FileWriter(filepath, append);
-                 BufferedWriter b = new BufferedWriter(f);
-                 PrintWriter writer = new PrintWriter(b);) {
+        System.out.println("about to save data: " + data);
+        try (FileWriter f = new FileWriter(filepath, append);
+             BufferedWriter b = new BufferedWriter(f);
+             PrintWriter writer = new PrintWriter(b);) {
 
-          //      if (prevHighScore.trim().equals("")) prevHighScore = "0";
-                if(prevHighScore.trim().equals("")){
-                    System.out.println("it aint work");
-                }
-                if(Integer.parseInt(prevHighScore.trim()) < data) writer.println(data);
-
-            } catch (IOException error ) {
-                System.err.println("There was a problem writing to the file: " + filepath);
-                error.printStackTrace();
+            if(Integer.parseInt(prevHighScore.trim()) < data) {
+                writer.println(data);
             }
+
+        } catch (IOException error ) {
+            System.err.println("There was a problem writing to the file: " + filepath);
+            error.printStackTrace();
+        }
     }
 
     public void keyPressed(){
