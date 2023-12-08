@@ -30,6 +30,7 @@ public class Game extends PApplet {
         try {
             prevHighScore = readFile("score/highscore");
             if (prevHighScore.trim().equals("")) prevHighScore = "0";
+            System.out.println("hol up " + prevHighScore + " prev hig score");
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -104,7 +105,6 @@ public class Game extends PApplet {
         // snakes are red (hungry) and you lose because they eat you
         time = (int)(frames / 60.0);
         if(lost) {
-            System.out.println(time);
 
             background(100);
 
@@ -113,14 +113,13 @@ public class Game extends PApplet {
             fill(0, 255, 0);
             textSize(30);
             player.x = 99999;
-            text("You Lost. You have lasted. " + time + " seconds", 160, 250);
-            text("High score: " + prevHighScore + " seconds",160,300);
-            text("Your score: " + time + " seconds",160,400);
+
+
+            text("You lost. You lasted: " + time + " seconds", 160, 250);
+            text("High score: " + prevHighScore.trim() + " seconds",160,300);
+            text("Press 'r' to restart.",160,400);
 
             try {
-                if (time == 0) {
-                    System.out.println("TIME IS ZERO");
-                }
                 saveData(time, "score/highscore", false);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -139,6 +138,8 @@ public class Game extends PApplet {
 
             if(Integer.parseInt(prevHighScore.trim()) < data) {
                 writer.println(data);
+            } else{
+                writer.println(prevHighScore);
             }
 
         } catch (IOException error ) {
