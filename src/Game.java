@@ -1,5 +1,11 @@
 import processing.core.PApplet;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Game extends PApplet {
@@ -9,12 +15,15 @@ public class Game extends PApplet {
     private ArrayList<Snake> snakeList;
     private int frames;
     private boolean lost;
+    private int time;
+    private String prevHighScore;
     public void settings() {
         size(800, 600);   // set the window size
 
     }
 
     public void setup() {
+        time = 0;
         lost = false;
         frames = 0;
 
@@ -40,7 +49,7 @@ public class Game extends PApplet {
 
     }
 
-    public void draw() {
+    public void draw(){
         if (!lost) frames++;
         background(255);    // paint screen white
         fill(0, 255, 0);          // load green paint color
@@ -122,6 +131,23 @@ public class Game extends PApplet {
        text("Time: " + time,20,40);
     }
 
+    private void saveData(int data, String filepath, boolean append) throws IOException {
+            try (FileWriter f = new FileWriter(filepath, append);
+                 BufferedWriter b = new BufferedWriter(f);
+                 PrintWriter writer = new PrintWriter(b);) {
+
+          //      if (prevHighScore.trim().equals("")) prevHighScore = "0";
+                if(prevHighScore.trim().equals("")){
+                    System.out.println("it aint work");
+                }
+                if(Integer.parseInt(prevHighScore.trim()) < data) writer.println(data);
+
+            } catch (IOException error ) {
+                System.err.println("There was a problem writing to the file: " + filepath);
+                error.printStackTrace();
+            }
+    }
+
     public void keyPressed(){
        player.handleKeyPress(key);
     }
@@ -136,7 +162,10 @@ public class Game extends PApplet {
 
 
     }
-        public static void main (String[]args){
+    public static void main (String[]args){
             PApplet.main("Game");
         }
+    public static String readFile(String fileName) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(fileName)));
+    }
 }
