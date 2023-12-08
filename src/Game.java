@@ -113,14 +113,15 @@ public class Game extends PApplet {
             fill(0, 255, 0);
             textSize(30);
             player.x = 99999;
-            text("You Lost. You lasted: " + time + " seconds", 160, 250);
-            text("High score: " + prevHighScore.trim() + " seconds",160,300);
+            text("You Lost. You have lasted. " + time + " seconds", 160, 250);
+            text("High score: " + prevHighScore+ " seconds",160,300);
+            text("Your score: " + time + " seconds",160,400);
 
             try {
                 if (time == 0) {
                     System.out.println("TIME IS ZERO");
                 }
-                saveData(time, "score/highscore", false, prevHighScore);
+                saveData(time, "score/highscore", false);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -130,16 +131,15 @@ public class Game extends PApplet {
        text("Time: " + time,20,40);
     }
 
-    private void saveData(int data, String filepath, boolean append, String HighScore) throws IOException {
+    private void saveData(int data, String filepath, boolean append) throws IOException {
         System.out.println("about to save data: " + data);
         try (FileWriter f = new FileWriter(filepath, append);
              BufferedWriter b = new BufferedWriter(f);
              PrintWriter writer = new PrintWriter(b);) {
 
-            if(Integer.parseInt(HighScore.trim()) < data) {
+            if(Integer.parseInt(prevHighScore.trim()) < data) {
                 writer.println(data);
             }
-            else writer.println(HighScore);
 
         } catch (IOException error ) {
             System.err.println("There was a problem writing to the file: " + filepath);
