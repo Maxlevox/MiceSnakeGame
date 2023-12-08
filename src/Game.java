@@ -108,8 +108,6 @@ public class Game extends PApplet {
 
             background(100);
 
-            // HAVE TO MAKE PLAYER STOP MOVING
-            // creating rectangle in the middle that says " you lose"
             fill(0, 255, 0);
             textSize(30);
             player.x = 99999;
