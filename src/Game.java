@@ -50,7 +50,7 @@ public class Game extends PApplet {
     }
 
     public void draw(){
-        if (!lost) frames++;
+        if (!lost) frames++; // continue to add frames (for time) if player has not lost yet
         background(255);    // paint screen white
         fill(0, 255, 0);          // load green paint color
 
@@ -58,12 +58,8 @@ public class Game extends PApplet {
 
         for (Mice mouse : mouseList) {
             // changing the direction of mouse if it collides or is close to snake
-            for (int j = 0; j < snakeList.size(); j++) {
-                if ( mouse.colliding(snakeList.get(j)) ) {
-                    mouse.flip_Xspeed();
-                    mouse.flip_Yspeed();
-                }
-            }
+            MouseSnakeCollision(mouse, snakeList);
+
             // player catching or colliding with mouse
             if(player.collidingWithMouse(mouse) && !player.hasMouse){
                 player.setHasMouse(true);
@@ -78,15 +74,37 @@ public class Game extends PApplet {
 
             mouse.draw(this);
         }
+
         // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
             snake.changeColor(false);
             snake.draw(this);
         }
+
         // feeding the closest snake by colliding with it
-        for (int i = 0; i < snakeList.size(); i++) {
-            if (player.collidingWithSnake(snakeList.get(i)) && player.hasMouse) {
-                snakeList.get(i).changeColor(true);
+        feedSnake(snakeList);
+
+        // snakes are red (hungry) and you lose because they eat you --> checks if you loose
+        isLost(lost, frames);
+
+        textSize(35);
+        fill(0);
+        text("Time: " + time,20,40);
+    }
+
+    private void MouseSnakeCollision(Mice mouse, ArrayList<Snake> listOfSnakes) {
+        for (int j = 0; j < listOfSnakes.size(); j++) {
+            if ( mouse.colliding(listOfSnakes.get(j)) ) {
+                mouse.flip_Xspeed();
+                mouse.flip_Yspeed();
+            }
+        }
+    }
+
+    private void feedSnake(ArrayList<Snake> listOfSnakes) {
+        for (int i = 0; i < listOfSnakes.size(); i++) {
+            if (player.collidingWithSnake(listOfSnakes.get(i)) && player.hasMouse) {
+                listOfSnakes.get(i).changeColor(true);
                 player.hasMouse = false;
                 // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
@@ -97,11 +115,13 @@ public class Game extends PApplet {
                     }
                 }
             }
-            if (    snakeList.get(i).get_greencolor() <= 0) {
-                lost = true;
+            if (listOfSnakes.get(i).get_greencolor() <= 0) {
+                this.lost = true;
             }
         }
-        // snakes are red (hungry) and you lose because they eat you
+    }
+
+    private void isLost(boolean lost, int frames) {
         time = (int)(frames / 60.0);
         if(lost) {
             System.out.println(time);
@@ -112,32 +132,30 @@ public class Game extends PApplet {
             textSize(30);
             player.x = 99999;
             text("You Lost. You have lasted. " + time + " seconds", 160, 250);
-            text("High score: " + prevHighScore+ " seconds",160,300);
-            text("Your score: " + time + " seconds",160,400);
+            text("High score: " + prevHighScore.trim() + " seconds",160,300);
+            text("Press 'r' to restart.",160,400);
 
             try {
                 if (time == 0) {
                     System.out.println("TIME IS ZERO");
                 }
-                saveData(time, "score/highscore", false);
+                saveData(time, "score/highscore", false, prevHighScore);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        textSize(35);
-        fill(0);
-       text("Time: " + time,20,40);
     }
 
-    private void saveData(int data, String filepath, boolean append) throws IOException {
+    private void saveData(int data, String filepath, boolean append, String HighScore) throws IOException {
         System.out.println("about to save data: " + data);
         try (FileWriter f = new FileWriter(filepath, append);
              BufferedWriter b = new BufferedWriter(f);
              PrintWriter writer = new PrintWriter(b);) {
 
-            if(Integer.parseInt(prevHighScore.trim()) < data) {
+            if(Integer.parseInt(HighScore.trim()) < data) {
                 writer.println(data);
             }
+            else writer.println(HighScore);
 
         } catch (IOException error ) {
             System.err.println("There was a problem writing to the file: " + filepath);
