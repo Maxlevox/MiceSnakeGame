@@ -1,9 +1,12 @@
+import com.sun.javafx.scene.control.GlobalMenuAdapter;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Mice {
     private int x, y, size;
    private double xSpeed, ySpeed;
    private boolean isCaught;
+
 
     public Mice(int x, int y, int size){
         this.x = x;
@@ -23,10 +26,6 @@ public class Mice {
     }
 
     public void draw(PApplet window){
-        window.fill(128,128,128);
-        window.ellipse(x,y,size,size);
-
-
 
         wallCollision(window);
     }

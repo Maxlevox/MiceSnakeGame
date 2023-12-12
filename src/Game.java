@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -17,6 +18,8 @@ public class Game extends PApplet {
     private boolean lost;
     private int time;
     private String prevHighScore;
+    PImage mouseImg;
+    PImage playerImg;
     public void settings() {
         size(800, 600);   // set the window size
 
@@ -26,7 +29,12 @@ public class Game extends PApplet {
         time = 0;
         lost = false;
         frames = 0;
+        mouseImg = loadImage("newMouse.png");
+        mouseImg.resize(70,70);
+        playerImg = loadImage("thekid.png");
+        playerImg.resize(50,50);
 
+        // reading file and saving that information of high score
         try {
             prevHighScore = readFile("score/highscore");
             if (prevHighScore.trim().equals("")) prevHighScore = "0";

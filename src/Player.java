@@ -20,8 +20,6 @@ public class Player {
     }
 
     public void draw(PApplet window){
-        window.fill(0,0,255);
-        window.ellipse(x,y,size,size);
 
         if(up){
             y-=5;
