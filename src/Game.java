@@ -94,7 +94,6 @@ public class Game extends PApplet {
         if((frames/60.0) % 30 == 0 ){
             Snake snake = new Snake(this, (int)(Math.random()*550+50), (int)(Math.random()*550+50), 50);
             snakeList.add(snake);
-            System.out.println(time);
         }
         // feeding the closest snake by colliding with it
         feedSnake(snakeList);
