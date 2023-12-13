@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Player {
     int x, y,size;
@@ -9,9 +10,12 @@ public class Player {
     boolean right = false;
     boolean up = false;
     boolean down = false;
+    private PImage playerImg;
 
 
-    public Player(int x, int y, int size){
+    public Player(PApplet window, int x, int y, int size){
+        playerImg = window.loadImage("thekid.png");
+        playerImg.resize(50,50);
         this.size = size;
         this.x = x;
         this.y = y;
@@ -20,6 +24,8 @@ public class Player {
     }
 
     public void draw(PApplet window){
+
+        window.image(this.playerImg, x, y);
 
         if(up){
             y-=5;
@@ -81,18 +87,18 @@ public class Player {
     }
 
     public void wallCollision(PApplet window){
-        if(x + size/2 > window.width){
-            x = window.width - size/2;
+        if(x + size > window.width){
+            x = window.width - size;
         }
-        if(x < size/2){
-            x = size/2;
+        if(x <= 0){
+            x = 0;
         }
 
-        if(y < size/2){
-            y = size/2;
+        if(y <= 0){
+            y = 0;
         }
-        if(y > window.height - size/2){
-            y = window.height - size/2;
+        if(y + size> window.height){
+            y = window.height-size;
         }
     }
     public boolean isAlive(){

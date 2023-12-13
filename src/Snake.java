@@ -1,11 +1,15 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Snake {
     private int x, y, size;
     private double redColor, greenColor;
     private double xSpeed, ySpeed;
+    private PImage snakeImg;
 
-    public Snake(int x, int y, int size) {
+    public Snake(PApplet window, int x, int y, int size) {
+        snakeImg = window.loadImage("Snake.png");
+        snakeImg.resize(200, 200);
         this.x = x;
         this.y = y;
         this.size = size;
@@ -21,13 +25,17 @@ public class Snake {
     }
 
     public void draw(PApplet window){
+        window.image(this.snakeImg, x, y);
+        for(int i = 0; i < snakeImg.width/window.get().pixelWidth; i++) {
+            for (int j = 0; j < snakeImg.height/window.get().pixelHeight; j++) {
+                snakeImg.set(i, j, (int)(greenColor));
+            }
+        }
 
-        window.fill((int)redColor,(int)greenColor,0);
-        window.ellipse(x,y,size,size);
         wallCollisions(window);
     }
-
-    public boolean changeColor(boolean hasMouseAndCollided){
+    // trying to get color to change
+    public boolean changeColor(PApplet window, boolean hasMouseAndCollided){
         redColor += 0.3;
         greenColor -= 0.3;
 
@@ -37,24 +45,25 @@ public class Snake {
             return false;
         }
         return false;
+
     }
 
     public void wallCollisions(PApplet window) {
-        if (x + size/2 >= window.width){
+        if (x + size >= window.width){
             xSpeed = -xSpeed;
-            this.x = window.width-size/2;
+            this.x = window.width-size;
         }
-        else if (x - size/2 <= 0) {
+        else if (x <= 0) {
             xSpeed = -xSpeed;
-            this.x = size/2;
+            this.x = 0;
         }
-        if (y + size/2 >= window.height){
+        if (y + size >= window.height){
             ySpeed = -ySpeed;
-            this.y = window.height-size/2;
+            this.y = window.height-size;
         }
-        if ( y - size/2 <= 0) {
+        if ( y <= 0) {
             ySpeed = -ySpeed;
-            this.y = size/2;
+            this.y = 0;
         }
 
         x += xSpeed;

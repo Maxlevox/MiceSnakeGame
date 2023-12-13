@@ -42,16 +42,16 @@ public class Game extends PApplet {
             throw new RuntimeException(e);
         }
 
-        player = new Player(300,300,25);
+        player = new Player(this, 300,300,50);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            Mice mouse = new Mice((int)(Math.random()*550+50),(int)(Math.random()*550+50),18);
+            Mice mouse = new Mice(this, (int)(Math.random()*550+50),(int)(Math.random()*550+50),70);
             mouseList.add(mouse);
         }
 
         snakeList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Snake snake = new Snake((int)(Math.random()*550+50), (int)(Math.random()*550+50), 30);
+            Snake snake = new Snake(this, (int)(Math.random()*550+50), (int)(Math.random()*550+50), 30);
             snakeList.add(snake);
         }
 
@@ -85,7 +85,7 @@ public class Game extends PApplet {
 
         // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
-            snake.changeColor(false);
+            snake.changeColor(this, false);
             snake.draw(this);
         }
 
@@ -112,7 +112,7 @@ public class Game extends PApplet {
     private void feedSnake(ArrayList<Snake> listOfSnakes) {
         for (int i = 0; i < listOfSnakes.size(); i++) {
             if (player.collidingWithSnake(listOfSnakes.get(i)) && player.hasMouse) {
-                listOfSnakes.get(i).changeColor(true);
+                listOfSnakes.get(i).changeColor(this, true);
                 player.hasMouse = false;
                 // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
@@ -132,7 +132,6 @@ public class Game extends PApplet {
     private void isLost(boolean lost, int frames) {
         time = (int)(frames / 60.0);
         if(lost) {
-            System.out.println(time);
 
             background(100);
 
@@ -144,9 +143,6 @@ public class Game extends PApplet {
             text("Press 'r' to restart.",160,400);
 
             try {
-                if (time == 0) {
-                    System.out.println("TIME IS ZERO");
-                }
                 saveData(time, "score/highscore", false, prevHighScore);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -155,7 +151,6 @@ public class Game extends PApplet {
     }
 
     private void saveData(int data, String filepath, boolean append, String HighScore) throws IOException {
-        System.out.println("about to save data: " + data);
         try (FileWriter f = new FileWriter(filepath, append);
              BufferedWriter b = new BufferedWriter(f);
              PrintWriter writer = new PrintWriter(b);) {

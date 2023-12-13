@@ -6,9 +6,12 @@ public class Mice {
     private int x, y, size;
    private double xSpeed, ySpeed;
    private boolean isCaught;
+   private PImage mouseImg;
 
 
-    public Mice(int x, int y, int size){
+    public Mice(PApplet window, int x, int y, int size){
+        mouseImg = window.loadImage("newMouse.png");
+        mouseImg.resize(70,70);
         this.x = x;
         this.y = y;
         this.size = size;
@@ -26,7 +29,7 @@ public class Mice {
     }
 
     public void draw(PApplet window){
-
+        window.image(this.mouseImg, x, y);
         wallCollision(window);
     }
 
