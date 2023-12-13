@@ -91,6 +91,8 @@ public class Game extends PApplet {
             tint((float)snake.get_redColor(),(float)snake.get_greenColor(),0);
             snake.draw(this);
         }
+        // adding one more snake every 30 seconds to increase difficulty
+        if (frames/60.0 % 30 == 0) addSnake(snakeList);
 
         // feeding the closest snake by colliding with it
         feedSnake(snakeList);
@@ -101,6 +103,11 @@ public class Game extends PApplet {
         textSize(35);
         fill(0);
         text("Time: " + time,20,40);
+    }
+
+    private void addSnake(ArrayList<Snake> snakeList) {
+        Snake snake = new Snake(this, (int)(Math.random()*550+50), (int)(Math.random()*550+50), 50);
+        snakeList.add(snake);
     }
 
     private void MouseSnakeCollision(Mice mouse, ArrayList<Snake> listOfSnakes) {
