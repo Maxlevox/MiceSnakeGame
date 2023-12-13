@@ -45,13 +45,13 @@ public class Game extends PApplet {
         player = new Player(this, 300,300,50);
         mouseList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            Mice mouse = new Mice(this, (int)(Math.random()*550+50),(int)(Math.random()*550+50),70);
+            Mice mouse = new Mice(this, (int)(Math.random()*550+50),(int)(Math.random()*550+50),30);
             mouseList.add(mouse);
         }
 
         snakeList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Snake snake = new Snake(this, (int)(Math.random()*550+50), (int)(Math.random()*550+50), 30);
+            Snake snake = new Snake(this, (int)(Math.random()*550+50), (int)(Math.random()*550+50), 50);
             snakeList.add(snake);
         }
 

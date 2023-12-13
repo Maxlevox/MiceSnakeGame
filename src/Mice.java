@@ -11,7 +11,7 @@ public class Mice {
 
     public Mice(PApplet window, int x, int y, int size){
         mouseImg = window.loadImage("newMouse.png");
-        mouseImg.resize(70,70);
+        mouseImg.resize(45,30);
         this.x = x;
         this.y = y;
         this.size = size;
@@ -34,22 +34,22 @@ public class Mice {
     }
 
     public void wallCollision(PApplet window){
-        if(x + size/2 > window.width){
+        if(x + mouseImg.width >= window.width){
             xSpeed = -xSpeed;
-            x = window.width - size/2;
+            x = window.width - mouseImg.width;
         }
-        if(x < size/2){
+        if(x <= 0){
             xSpeed = -xSpeed;
-            x = size/2;
+            x = 0;
         }
 
-        if(y < size/2){
+        if(y <= 0){
             ySpeed = -ySpeed;
-            y = size/2;
+            y = 0;
         }
-        if(y > window.height - size/2){
+        if(y + mouseImg.height >= window.height){
             ySpeed = -ySpeed;
-            y = window.height - size/2;
+            y = window.height - mouseImg.height;
         }
 
         x += xSpeed;

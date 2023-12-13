@@ -9,7 +9,7 @@ public class Snake {
 
     public Snake(PApplet window, int x, int y, int size) {
         snakeImg = window.loadImage("Snake.png");
-        snakeImg.resize(200, 200);
+        snakeImg.resize(50, 50);
         this.x = x;
         this.y = y;
         this.size = size;
