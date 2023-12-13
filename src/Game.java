@@ -30,6 +30,7 @@ public class Game extends PApplet {
         lost = false;
         frames = 0;
         mouseImg = loadImage("newMouse.png");
+
         mouseImg.resize(70,70);
         playerImg = loadImage("thekid.png");
         playerImg.resize(50,50);
@@ -61,6 +62,7 @@ public class Game extends PApplet {
         if (!lost) frames++; // continue to add frames (for time) if player has not lost yet
         background(255);    // paint screen white
         fill(0, 255, 0);          // load green paint color
+        tint(255);
 
         player.draw(this);
 
@@ -86,6 +88,7 @@ public class Game extends PApplet {
         // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
             snake.changeColor(this, false);
+            tint((float)snake.get_redColor(),(float)snake.get_greenColor(),0);
             snake.draw(this);
         }
 
@@ -114,6 +117,7 @@ public class Game extends PApplet {
             if (player.collidingWithSnake(listOfSnakes.get(i)) && player.hasMouse) {
                 listOfSnakes.get(i).changeColor(this, true);
                 player.hasMouse = false;
+
                 // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
                     if(mouse.isCaught()){
@@ -123,7 +127,7 @@ public class Game extends PApplet {
                     }
                 }
             }
-            if (listOfSnakes.get(i).get_greencolor() <= 0) {
+            if (listOfSnakes.get(i).get_greenColor() <= 0) {
                 this.lost = true;
             }
         }

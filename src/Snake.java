@@ -7,6 +7,8 @@ public class Snake {
     private double xSpeed, ySpeed;
     private PImage snakeImg;
 
+
+
     public Snake(PApplet window, int x, int y, int size) {
         snakeImg = window.loadImage("Snake.png");
         snakeImg.resize(50, 50);
@@ -25,7 +27,10 @@ public class Snake {
     }
 
     public void draw(PApplet window){
+
+
         window.image(this.snakeImg, x, y);
+
         for(int i = 0; i < snakeImg.width/window.get().pixelWidth; i++) {
             for (int j = 0; j < snakeImg.height/window.get().pixelHeight; j++) {
                 snakeImg.set(i, j, (int)(greenColor));
@@ -76,9 +81,10 @@ public class Snake {
     public int get_y() {return this.y;}
     public int get_size() {return this.size;}
 
-    public double get_greencolor() {
+    public double get_greenColor() {
         return this.greenColor;
     }
+    public double get_redColor() { return this.redColor; }
 
     public void set_xSpeed(int xspeed) {
         this.xSpeed = xspeed;
