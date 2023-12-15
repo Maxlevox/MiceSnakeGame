@@ -22,9 +22,7 @@ public class Snake {
         if (xSpeed > 0.5) xSpeed = -xSpeed;
 
         ySpeed = Math.random() *4 + 1;
-        if (ySpeed > 0.5) ySpeed = -ySpeed;
-
-    }
+        if (ySpeed > 0.5) ySpeed = -ySpeed;}
 
     public void draw(PApplet window){
         window.image(this.snakeImg, x, y);
@@ -32,8 +30,7 @@ public class Snake {
         wallCollisions(window);
     }
 
-    // trying to get color to change
-    public boolean changeColor(PApplet window, boolean hasMouseAndCollided){
+    public boolean changeColor(boolean hasMouseAndCollided){
         redColor += 0.3;
         greenColor -= 0.3;
 
@@ -43,7 +40,6 @@ public class Snake {
             return false;
         }
         return false;
-
     }
 
     public void wallCollisions(PApplet window) {
@@ -69,14 +65,11 @@ public class Snake {
     }
 
 
-
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
     public int get_size() {return this.size;}
 
-    public double get_greenColor() {
-        return this.greenColor;
-    }
+    public double get_greenColor() {return this.greenColor;}
     public double get_redColor() { return this.redColor; }
 
     public void set_xSpeed(int xspeed) {

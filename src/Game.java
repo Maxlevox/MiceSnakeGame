@@ -72,7 +72,7 @@ public class Game extends PApplet {
 
         // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
-            snake.changeColor(this, false);
+            snake.changeColor(false);
             tint((float)snake.get_redColor(),(float)snake.get_greenColor(),0);
             snake.draw(this);
         }
@@ -114,7 +114,7 @@ public class Game extends PApplet {
     private void feedSnake(ArrayList<Snake> listOfSnakes) {
         for (int i = 0; i < listOfSnakes.size(); i++) {
             if (player.collidingWithSnake(listOfSnakes.get(i)) && player.doYouHaveMouse()) {
-                listOfSnakes.get(i).changeColor(this, true);
+                listOfSnakes.get(i).changeColor(true);
                 player.setHasMouse(false);
 
                 // finding the mouse that was eaten and "making" new mouse

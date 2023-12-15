@@ -1,4 +1,3 @@
-import com.sun.javafx.scene.control.GlobalMenuAdapter;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -60,7 +59,6 @@ public class Mice {
 
         x += xSpeed;
         y += ySpeed;
-
 
     }
 
