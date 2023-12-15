@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Mice {
@@ -69,6 +70,22 @@ public class Mice {
                 mouse.flip_Yspeed();
             }
         }
+    }
+
+    public void doActions(Player player, PApplet window, ArrayList<Snake> snakeList) {
+        // player catching or colliding with mouse
+        if(player.collidingWithMouse(this) && !player.doYouHaveMouse()){
+            player.setHasMouse(true);
+            this.setCaught(true);
+        }
+
+        if (this.isCaught()) {
+            // making mouse follow
+            this.set_x(player.get_x());
+            this.set_y(player.get_y());
+        }
+
+        this.draw(window,this, snakeList);
     }
 
 
