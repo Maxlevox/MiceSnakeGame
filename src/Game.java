@@ -67,7 +67,7 @@ public class Game extends PApplet {
         player.draw(this);
 
         for (Mice mouse : mouseList) {
-            doAction(mouse);
+            doActions(mouse);
         }
 
         // changing snake color to more reddish color to show they are hungrier
@@ -90,7 +90,7 @@ public class Game extends PApplet {
         text("Time: " + time,20,40);
     }
 
-    private void doAction(Mice mouse) {
+    private void doActions(Mice mouse) {
         // player catching or colliding with mouse
         if(player.collidingWithMouse(mouse) && !player.doYouHaveMouse()){
             player.setHasMouse(true);
