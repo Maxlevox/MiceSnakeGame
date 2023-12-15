@@ -2,14 +2,14 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Player {
-    int x, y,size;
-    boolean alive;
-    boolean hasMouse;
+    private int x, y,size;
+    private boolean alive;
+    private boolean hasMouse;
 
-    boolean left = false;
-    boolean right = false;
-    boolean up = false;
-    boolean down = false;
+    private boolean left = false;
+    private boolean right = false;
+    private boolean up = false;
+    private boolean down = false;
     private PImage playerImg;
 
 
@@ -108,12 +108,9 @@ public class Player {
         return hasMouse;
     }
     public void setHasMouse(boolean gotMouse){
-        if(gotMouse) {
-            hasMouse = true;
-        } else{
-            hasMouse = false;
-        }
+        hasMouse = gotMouse;
     }
+
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
     public int get_size(){return this.size;}
@@ -121,4 +118,6 @@ public class Player {
     public double getSpeed() {
         return 5;
     }
+
+    public void set_x(int newX) {this.x = newX;}
 }

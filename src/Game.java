@@ -67,11 +67,9 @@ public class Game extends PApplet {
         player.draw(this);
 
         for (Mice mouse : mouseList) {
-            // changing the direction of mouse if it collides or is close to snake
-            MouseSnakeCollision(mouse, snakeList);
 
             // player catching or colliding with mouse
-            if(player.collidingWithMouse(mouse) && !player.hasMouse){
+            if(player.collidingWithMouse(mouse) && !player.doYouHaveMouse()){
                 player.setHasMouse(true);
                 mouse.setCaught(true);
             }
@@ -82,7 +80,7 @@ public class Game extends PApplet {
                 mouse.set_y(player.get_y());
             }
 
-            mouse.draw(this);
+            mouse.draw(this, mouse, snakeList);
         }
 
         // changing snake color to more reddish color to show they are hungrier
@@ -110,20 +108,11 @@ public class Game extends PApplet {
         snakeList.add(snake);
     }
 
-    private void MouseSnakeCollision(Mice mouse, ArrayList<Snake> listOfSnakes) {
-        for (int j = 0; j < listOfSnakes.size(); j++) {
-            if ( mouse.colliding(listOfSnakes.get(j)) ) {
-                mouse.flip_Xspeed();
-                mouse.flip_Yspeed();
-            }
-        }
-    }
-
     private void feedSnake(ArrayList<Snake> listOfSnakes) {
         for (int i = 0; i < listOfSnakes.size(); i++) {
-            if (player.collidingWithSnake(listOfSnakes.get(i)) && player.hasMouse) {
+            if (player.collidingWithSnake(listOfSnakes.get(i)) && player.doYouHaveMouse()) {
                 listOfSnakes.get(i).changeColor(this, true);
-                player.hasMouse = false;
+                player.setHasMouse(false);
 
                 // finding the mouse that was eaten and "making" new mouse
                 for(Mice mouse : mouseList){
@@ -148,17 +137,19 @@ public class Game extends PApplet {
 
             fill(0, 255, 0);
             textSize(30);
-            player.x = 99999;
+            player.set_x(999999);
             text("You Lost. You have lasted. " + time + " seconds", 160, 250);
             text("High score: " + prevHighScore.trim() + " seconds",160,300);
             text("Press 'r' to restart.",160,400);
 
             try {
                 saveData(time, "score/highscore", false, prevHighScore);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+
     }
 
     private void saveData(int data, String filepath, boolean append, String HighScore) throws IOException {

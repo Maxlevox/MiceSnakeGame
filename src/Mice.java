@@ -2,6 +2,8 @@ import com.sun.javafx.scene.control.GlobalMenuAdapter;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.util.ArrayList;
+
 public class Mice {
     private int x, y, size;
    private double xSpeed, ySpeed;
@@ -28,7 +30,11 @@ public class Mice {
         }
     }
 
-    public void draw(PApplet window){
+    public void draw(PApplet window, Mice mouse, ArrayList<Snake> snakeList){
+
+        // changing the direction of mouse if it collides or is close to snake
+        MouseSnakeCollision(mouse, snakeList);
+
         window.image(this.mouseImg, x, y);
         wallCollision(window);
     }
@@ -56,6 +62,15 @@ public class Mice {
         y += ySpeed;
 
 
+    }
+
+    private void MouseSnakeCollision(Mice mouse, ArrayList<Snake> listOfSnakes) {
+        for (int j = 0; j < listOfSnakes.size(); j++) {
+            if ( mouse.colliding(listOfSnakes.get(j)) ) {
+                mouse.flip_Xspeed();
+                mouse.flip_Yspeed();
+            }
+        }
     }
 
 

@@ -27,18 +27,11 @@ public class Snake {
     }
 
     public void draw(PApplet window){
-
-
         window.image(this.snakeImg, x, y);
-
-        for(int i = 0; i < snakeImg.width/window.get().pixelWidth; i++) {
-            for (int j = 0; j < snakeImg.height/window.get().pixelHeight; j++) {
-                snakeImg.set(i, j, (int)(greenColor));
-            }
-        }
 
         wallCollisions(window);
     }
+
     // trying to get color to change
     public boolean changeColor(PApplet window, boolean hasMouseAndCollided){
         redColor += 0.3;
