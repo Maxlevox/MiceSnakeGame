@@ -67,20 +67,7 @@ public class Game extends PApplet {
         player.draw(this);
 
         for (Mice mouse : mouseList) {
-
-            // player catching or colliding with mouse
-            if(player.collidingWithMouse(mouse) && !player.doYouHaveMouse()){
-                player.setHasMouse(true);
-                mouse.setCaught(true);
-            }
-
-            if (mouse.isCaught()) {
-                // making mouse follow
-                mouse.set_x(player.get_x());
-                mouse.set_y(player.get_y());
-            }
-
-            mouse.draw(this, mouse, snakeList);
+            doAction(mouse);
         }
 
         // changing snake color to more reddish color to show they are hungrier
@@ -101,6 +88,22 @@ public class Game extends PApplet {
         textSize(35);
         fill(0);
         text("Time: " + time,20,40);
+    }
+
+    private void doAction(Mice mouse) {
+        // player catching or colliding with mouse
+        if(player.collidingWithMouse(mouse) && !player.doYouHaveMouse()){
+            player.setHasMouse(true);
+            mouse.setCaught(true);
+        }
+
+        if (mouse.isCaught()) {
+            // making mouse follow
+            mouse.set_x(player.get_x());
+            mouse.set_y(player.get_y());
+        }
+
+        mouse.draw(this, mouse, snakeList);
     }
 
     private void addSnake(ArrayList<Snake> snakeList) {
