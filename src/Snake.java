@@ -1,3 +1,5 @@
+
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -6,6 +8,7 @@ public class Snake {
     private double redColor, greenColor;
     private double xSpeed, ySpeed;
     private PImage snakeImg;
+    private boolean enraged;
 
 
 
@@ -17,19 +20,24 @@ public class Snake {
         this.size = size;
         redColor = 0;
         greenColor = 255;
+        enraged = false;
 
         xSpeed = Math.random()*4 + 1;
         if (xSpeed > 0.5) xSpeed = -xSpeed;
 
         ySpeed = Math.random() *4 + 1;
-        if (ySpeed > 0.5) ySpeed = -ySpeed;}
+        if (ySpeed > 0.5) ySpeed = -ySpeed;
 
-    public void draw(PApplet window){
-        window.image(this.snakeImg, x, y);
-
-        wallCollisions(window);
     }
 
+    public void draw(PApplet window, Player player){
+
+
+        window.image(this.snakeImg, x, y);
+
+        movement(window, player);
+    }
+    // trying to get color to change
     public boolean changeColor(boolean hasMouseAndCollided){
         redColor += 0.3;
         greenColor -= 0.3;
@@ -40,9 +48,10 @@ public class Snake {
             return false;
         }
         return false;
+
     }
 
-    public void wallCollisions(PApplet window) {
+    public void movement(PApplet window, Player player) {
         if (x + size >= window.width){
             xSpeed = -xSpeed;
             this.x = window.width-size;
@@ -60,16 +69,33 @@ public class Snake {
             this.y = 0;
         }
 
-        x += xSpeed;
-        y += ySpeed;
+        if(!enraged) {
+            x += xSpeed;
+            y += ySpeed;
+        } else{
+            if(player.get_x() > this.x){
+                this.x += 5;
+            } else{
+                this.x -= 5;
+            }
+
+            if(player.get_y() > this.y){
+                this.y += 5;
+            } else{
+                this.y -= 5;
+            }
+        }
     }
+
 
 
     public int get_x() {return this.x;}
     public int get_y() {return this.y;}
     public int get_size() {return this.size;}
 
-    public double get_greenColor() {return this.greenColor;}
+    public double get_greenColor() {
+        return this.greenColor;
+    }
     public double get_redColor() { return this.redColor; }
 
     public void set_xSpeed(int xspeed) {
@@ -77,5 +103,11 @@ public class Snake {
     }
     public void set_ySpeed(int yspeed) {
         this.ySpeed = yspeed;
+    }
+    public boolean isEnraged(){
+        return enraged;
+    }
+    public void set_enraged(){
+        enraged = true;
     }
 }

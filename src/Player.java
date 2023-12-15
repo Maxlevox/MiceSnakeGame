@@ -85,6 +85,10 @@ public class Player {
 
     }
 
+    public boolean collidingWithEnragedSnake(Snake snake) {
+        return snake.isEnraged() && (float)(this.size)/2 + (float)snake.get_size()/2 >= distance(this.get_x(), this.get_y(), snake.get_x(), snake.get_y());
+    }
+
     public void wallCollision(PApplet window){
         if(x + size > window.width){
             x = window.width - size;

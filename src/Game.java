@@ -74,7 +74,7 @@ public class Game extends PApplet {
         for (Snake snake: snakeList) {
             snake.changeColor(false);
             tint((float)snake.get_redColor(),(float)snake.get_greenColor(),0);
-            snake.draw(this);
+            snake.draw(this, player);
         }
         // adding one more snake every 30 seconds to increase difficulty
         if (frames/60.0 % 30 == 0) addSnake(snakeList);
@@ -97,6 +97,7 @@ public class Game extends PApplet {
 
     private void feedSnake(ArrayList<Snake> listOfSnakes) {
         for (int i = 0; i < listOfSnakes.size(); i++) {
+            if (player.collidingWithEnragedSnake(snakeList.get(i))) {lost = true;}
             if (player.collidingWithSnake(listOfSnakes.get(i)) && player.doYouHaveMouse()) {
                 listOfSnakes.get(i).changeColor(true);
                 player.setHasMouse(false);
@@ -111,7 +112,7 @@ public class Game extends PApplet {
                 }
             }
             if (listOfSnakes.get(i).get_greenColor() <= 0) {
-                this.lost = true;
+                listOfSnakes.get(i).set_enraged();
             }
         }
     }
