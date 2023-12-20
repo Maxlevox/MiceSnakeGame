@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Snake {
-    private int x, y, size;
+    private int xPos, yPos, size;
     private double redColor, greenColor;
     private double xSpeed, ySpeed;
     private PImage snakeImg;
@@ -15,8 +15,8 @@ public class Snake {
     public Snake(PApplet window, int x, int y, int size) {
         snakeImg = window.loadImage("Snake.png");
         snakeImg.resize(50, 50);
-        this.x = x;
-        this.y = y;
+        this.xPos = x;
+        this.yPos = y;
         this.size = size;
         redColor = 0;
         greenColor = 255;
@@ -33,7 +33,7 @@ public class Snake {
     public void draw(PApplet window, Player player){
 
 
-        window.image(this.snakeImg, x, y);
+        window.image(this.snakeImg, xPos, yPos);
 
         movement(window, player);
     }
@@ -52,45 +52,45 @@ public class Snake {
     }
 
     public void movement(PApplet window, Player player) {
-        if (x + size >= window.width){
+        if (xPos + size >= window.width){
             xSpeed = -xSpeed;
-            this.x = window.width-size;
+            this.xPos = window.width-size;
         }
-        else if (x <= 0) {
+        else if (xPos <= 0) {
             xSpeed = -xSpeed;
-            this.x = 0;
+            this.xPos = 0;
         }
-        if (y + size >= window.height){
+        if (yPos + size >= window.height){
             ySpeed = -ySpeed;
-            this.y = window.height-size;
+            this.yPos = window.height-size;
         }
-        if ( y <= 0) {
+        if ( yPos <= 0) {
             ySpeed = -ySpeed;
-            this.y = 0;
+            this.yPos = 0;
         }
 
         if(!enraged) {
-            x += xSpeed;
-            y += ySpeed;
+            xPos += xSpeed;
+            yPos += ySpeed;
         } else{
-            if(player.get_x() > this.x){
-                this.x += 5;
+            if(player.get_x() > this.xPos){
+                this.xPos += 5;
             } else{
-                this.x -= 5;
+                this.xPos -= 5;
             }
 
-            if(player.get_y() > this.y){
-                this.y += 5;
+            if(player.get_y() > this.yPos){
+                this.yPos += 5;
             } else{
-                this.y -= 5;
+                this.yPos -= 5;
             }
         }
     }
 
 
 
-    public int get_x() {return this.x;}
-    public int get_y() {return this.y;}
+    public int get_x() {return this.xPos;}
+    public int get_y() {return this.yPos;}
     public int get_size() {return this.size;}
 
     public double get_greenColor() {

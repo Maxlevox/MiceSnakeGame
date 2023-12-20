@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Mice {
-    private int x, y, size;
+    private int xPos, yLoc, size;
    private double xSpeed, ySpeed;
    private boolean isCaught;
    private PImage mouseImg;
@@ -14,8 +14,8 @@ public class Mice {
     public Mice(PApplet window, int x, int y, int size){
         mouseImg = window.loadImage("newMouse.png");
         mouseImg.resize(45,30);
-        this.x = x;
-        this.y = y;
+        this.xPos = x;
+        this.yLoc = y;
         this.size = size;
         isCaught = false;
 
@@ -35,31 +35,31 @@ public class Mice {
         // changing the direction of mouse if it collides or is close to snake
         MouseSnakeCollision(mouse, snakeList);
 
-        window.image(this.mouseImg, x, y);
+        window.image(this.mouseImg, xPos, yLoc);
         wallCollision(window);
     }
 
     public void wallCollision(PApplet window){
-        if(x + mouseImg.width >= window.width){
+        if(xPos + mouseImg.width >= window.width){
             xSpeed = -xSpeed;
-            x = window.width - mouseImg.width;
+            xPos = window.width - mouseImg.width;
         }
-        if(x <= 0){
+        if(xPos <= 0){
             xSpeed = -xSpeed;
-            x = 0;
+            xPos = 0;
         }
 
-        if(y <= 0){
+        if(yLoc <= 0){
             ySpeed = -ySpeed;
-            y = 0;
+            yLoc = 0;
         }
-        if(y + mouseImg.height >= window.height){
+        if(yLoc + mouseImg.height >= window.height){
             ySpeed = -ySpeed;
-            y = window.height - mouseImg.height;
+            yLoc = window.height - mouseImg.height;
         }
 
-        x += xSpeed;
-        y += ySpeed;
+        xPos += xSpeed;
+        yLoc += ySpeed;
 
     }
 
@@ -106,10 +106,10 @@ public class Mice {
         return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
     }
 
-    public int get_x() {return this.x;}
-    public void set_x(int newX) {this.x = newX;}
-    public void set_y(int newY) {this.y = newY;}
-    public int get_y() {return this.y;}
+    public int get_x() {return this.xPos;}
+    public void set_x(int newX) {this.xPos = newX;}
+    public void set_y(int newY) {this.yLoc = newY;}
+    public int get_y() {return this.yLoc;}
     public int get_size() {return this.size;}
     public double get_Xspeed() {return this.xSpeed;}
     public double get_Yspeed() {return this.ySpeed;}

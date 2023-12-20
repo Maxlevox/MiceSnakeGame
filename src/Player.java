@@ -2,8 +2,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Player {
-    private int x, y,size;
-    private boolean alive;
+    private int xPos, yPos,size;
+    private boolean is_alive;
     private boolean hasMouse;
 
     private boolean left = false;
@@ -13,31 +13,31 @@ public class Player {
     private PImage playerImg;
 
 
-    public Player(PApplet window, int x, int y, int size){
+    public Player(PApplet window, int xPos, int yPos, int size){
         playerImg = window.loadImage("thekid.png");
         playerImg.resize(50,50);
         this.size = size;
-        this.x = x;
-        this.y = y;
-        alive = true;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        is_alive = true;
         hasMouse = false;
     }
 
     public void draw(PApplet window){
 
-        window.image(this.playerImg, x, y);
+        window.image(this.playerImg, xPos, yPos);
 
         if(up){
-            y-=5;
+            yPos-=5;
         }
         if(down){
-            y+=5;
+            yPos+=5;
         }
         if(left){
-            x-=5;
+            xPos-=5;
         }
         if(right){
-            x+=5;
+            xPos+=5;
         }
         wallCollision(window);
     }
@@ -90,22 +90,22 @@ public class Player {
     }
 
     public void wallCollision(PApplet window){
-        if(x + size > window.width){
-            x = window.width - size;
+        if(xPos + size > window.width){
+            xPos = window.width - size;
         }
-        if(x <= 0){
-            x = 0;
+        if(xPos <= 0){
+            xPos = 0;
         }
 
-        if(y <= 0){
-            y = 0;
+        if(yPos <= 0){
+            yPos = 0;
         }
-        if(y + size> window.height){
-            y = window.height-size;
+        if(yPos + size> window.height){
+            yPos = window.height-size;
         }
     }
     public boolean isAlive(){
-        return alive;
+        return is_alive;
     }
 
     public boolean doYouHaveMouse(){
@@ -115,13 +115,13 @@ public class Player {
         hasMouse = gotMouse;
     }
 
-    public int get_x() {return this.x;}
-    public int get_y() {return this.y;}
+    public int get_x() {return this.xPos;}
+    public int get_y() {return this.yPos;}
     public int get_size(){return this.size;}
 
     public double getSpeed() {
         return 5;
     }
 
-    public void set_x(int newX) {this.x = newX;}
+    public void set_x(int newX) {this.xPos = newX;}
 }
