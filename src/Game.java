@@ -73,7 +73,6 @@ public class Game extends PApplet {
         // changing snake color to more reddish color to show they are hungrier
         for (Snake snake: snakeList) {
             snake.changeColor(false);
-            tint((float)snake.get_redColor(),(float)snake.get_greenColor(),0);
             snake.draw(this, player);
         }
         // adding one more snake every 30 seconds to increase difficulty
