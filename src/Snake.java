@@ -32,10 +32,8 @@ public class Snake {
 
     public void draw(PApplet window, Player player){
 
+
         window.image(this.snakeImg, xPos, yPos);
-
-        window.tint((float)this.get_redColor(),(float)this.get_greenColor(),0);
-
         movement(window, player);
     }
     // trying to get color to change
